@@ -1,0 +1,33 @@
+{
+  "name": "namaste--react-new",
+  "version": "1.0.0",
+  "description": "This is namasthe react by akshay saini",
+  
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  }, 
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sailajachennu7/Swigyto.git"
+  },
+  "keywords": [],
+  "author": "sailaja chennu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sailajachennu7/Swigyto/issues"
+  },
+  "homepage": "https://github.com/sailajachennu7/Swigyto#readme",
+  "devDependencies": {
+    "parcel": "^2.13.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
