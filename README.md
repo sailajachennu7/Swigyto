@@ -17,3 +17,21 @@ All the best
 - Error handling
 - HTTPs
 - Tree shaking - removes unused code 
+
+
+#Namasthe food
+
+//  planning 
+// 1.header
+// --> logo
+// --> nav items
+// 2.Body
+// --> searchbar
+// --> restro container
+//     --> restro cards
+          // --> img,delivery Time,rating, cost etc,.
+// 3. Footer
+// --> copy right
+// --> address
+// --> contact
+// --> links
