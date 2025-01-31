@@ -27,7 +27,7 @@
 .res-card {
     margin: 5px;
     padding: 5px;
-    height: 360px;
+    /* height: 360px; */
     width: 200px;
     background-color: honeydew;
     border-radius: 5px;
@@ -43,10 +43,7 @@
    height: 40%;
 }
 
-.filter-btn {
-   margin: 5px;
-}
-
+ 
 .shimmer-container {
    display: flex;
    flex-wrap: wrap;
@@ -72,4 +69,24 @@
      background-position: 200% 0;
    }
  }
+
+ .login-btn {
+   padding: 15px;
+   margin-right: 5px;
+   border-radius: 20px;
+   background-color: rgb(241, 248, 248);
+ }
+
+ .filter {
+  display: flex;
+  margin: 10px;
+
+ }
+
+ .filter-btn {
+   margin-left: 15px;
+ }
  
+ .search-btn {
+   margin-left: 5px;
+ }

@@ -35,3 +35,17 @@ All the best
 // --> address
 // --> contact
 // --> links
+
+#React hooks 
+
+//useState => super powerful state in react
+//useEffect => controll side effects
+//useRouterError => to display the error on ui 
+
+
+
+#2 types of routing in webpage
+
+//client side routing => never makes api call but loads the respective component
+//server side routing => it makes api call to fetch the data from the server 
+
