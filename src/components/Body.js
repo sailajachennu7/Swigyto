@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUi from "./shimmerui";
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import OfflineGame from "../utils/OflineGame";
+
 
 const Body = () => { 
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -13,29 +16,18 @@ const Body = () => {
   }, []);
 
   const FetchedData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4440777&lng=78.444776&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-
-//converting data to json format using json method
+    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4440777&lng=78.444776&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
     const json = await data.json();
 
-  setListOfRestaurant(
-    //optional chaining for eliminating errors in the console with (?)
-      json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []
-    );
+  setListOfRestaurant(json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []);
   setFilteredRestaurant(json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []);
-
   };
-  
 
-  //conditional rendering if no data is there then renders shimmerUi
-  // if (listOfRestaurant.length === 0){
-  //   return <ShimmerUi/>                 
-       
-  // };
+  const onlineStatus = useOnlineStatus();
 
-//conditional rendering with ternary operator
+  if (!onlineStatus) {
+    return <OfflineGame />;  
+  };
 
   return listOfRestaurant.length === 0 ? <ShimmerUi/> : (
     <div className="body">
