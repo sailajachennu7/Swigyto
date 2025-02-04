@@ -4,7 +4,7 @@
   "description": "This is namasthe react by akshay saini",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html",
+    "build": "parcel build index.html && tailwindcss build src/styles.css -o dist/styles.css",
     "test": "jest"
   },
   "repository": {
@@ -19,10 +19,15 @@
   },
   "homepage": "https://github.com/sailajachennu7/Swigyto#readme",
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.3",
+    "autoprefixer": "^10.4.20",
     "parcel": "^2.13.3",
-    "process": "^0.11.10"
+    "postcss": "^8.5.1",
+    "process": "^0.11.10",
+    "tailwindcss": "^4.0.3"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.4"

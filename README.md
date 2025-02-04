@@ -47,5 +47,14 @@ All the best
 #2 types of routing in webpage
 
 //client side routing => never makes api call but loads the respective component
-//server side routing => it makes api call to fetch the data from the server 
+//server side routing => it makes api call to fetch the data from the server
+
+
+#EP 09 "Optimizing our APP"
+
+//Lazy loading -- 1.lazy 2. suspence
+//custom hooks -- 1.useOnlineStatus hook 2.useRestuarantMenu hook 
+//offlineGame -- whenever in offline the game will come
+//
+
 

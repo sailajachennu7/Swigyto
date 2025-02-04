@@ -32,11 +32,11 @@ const Body = () => {
   return listOfRestaurant.length === 0 ? <ShimmerUi/> : (
     <div className="body">
       <div className="filter">
-        <div className="search">
-         <input type="text" className="search-input" value={searchText} onChange={(e) => {
+        <div className="m-4 p-4">
+         <input type="text" className="border border-solid border-black rounded-lg" value={searchText} onChange={(e) => {
           setSearchText(e.target.value)
         }} />
-        <button className="search-btn"
+        <button className="px-4 bg-yellow-100 rounded-lg "
         onClick={() => {
         const FilteredRestaurents = listOfRestaurant.filter((res) => 
           res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -44,15 +44,15 @@ const Body = () => {
          setFilteredRestaurant(FilteredRestaurents);
         }}
         >search</button>
-        </div>
-        <button className="filter-btn" 
+         <button className="px-4 py-2 bg-blue-100 m-4 rounded-lg items-center" 
         onClick={() => {
           const FilteredData = listOfRestaurant.filter((res) => res.info.avgRating > 4);
           setListOfRestaurant(FilteredData);
         }}
         >Top Rated Restaurant</button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {/* Mapping over the restaurant list */}
         {filteredRestaurant.map((restaurant) => (
   

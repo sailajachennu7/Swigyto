@@ -31,7 +31,7 @@ class UserClassComp extends React.Component {
     const {login,id,avatar_url} = this.state.userInfo
     return(
         
-        <div className="user_fun">
+        <div className="user-card m-4 p-4 bg-gray-50 rounded-lg">
             <img src={avatar_url}/>  
             <h1>Name : {login}</h1>
             <h2>Id : {id }</h2> 
