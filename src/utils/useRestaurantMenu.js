@@ -13,7 +13,7 @@ const fetchData = async() => {
     const json = await data.json();
     setResInfo(json?.data?.cards)
 };
-      return resInfo;
+    return resInfo;
 };
 
 export default useRestaurantMenu;

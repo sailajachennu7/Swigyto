@@ -11,6 +11,10 @@ const RestaurantMenu = () => {
     const {name,cuisines,costForTwoMessage} = resInfo[2]?.card?.card?.info;
     const {itemCards} = resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
 
+    const categories = resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+
+    console.log("categories",categories);
+
     return (
         <div className="">
            <h1>{name || "Restaurant Name Not Found"}</h1>

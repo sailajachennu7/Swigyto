@@ -7,7 +7,7 @@ const RestaurantCard = (props) => {
     if (!Data) return null;
 
     return (
-        <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200">
+        <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-300">
             <img
                 className="rounded-lg"
                 alt="res-logo"
@@ -22,4 +22,16 @@ const RestaurantCard = (props) => {
     );
 };
 
+//higher order components
+
+export const WithPromotedLabel = (RestaurantCard) => {
+    return (props) => {
+        return (
+            <div>
+            <label className="bg-black text-white rounded-lg">Promoted</label>
+            <RestaurantCard {...props}/>
+            </div>
+        );
+    };
+};
 export default RestaurantCard;
