@@ -1,100 +1,89 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const GRID_SIZE = 20;
+const INITIAL_SNAKE = [{ x: 10, y: 10 }];
+const INITIAL_FOOD = { x: 5, y: 5 };
+const DIRECTIONS = {
+  ArrowUp: { x: 0, y: -1 },
+  ArrowDown: { x: 0, y: 1 },
+  ArrowLeft: { x: -1, y: 0 },
+  ArrowRight: { x: 1, y: 0 },
+};
 
 const OfflineGame = () => {
-  const [isJumping, setIsJumping] = useState(false);
-  const [obstacleLeft, setObstacleLeft] = useState(300);
+  const [snake, setSnake] = useState(INITIAL_SNAKE);
+  const [food, setFood] = useState(INITIAL_FOOD);
+  const [direction, setDirection] = useState(DIRECTIONS.ArrowRight);
   const [gameOver, setGameOver] = useState(false);
-  const dinoRef = useRef(null);
-  const obstacleRef = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (obstacleLeft > 0) {
-        setObstacleLeft((prev) => prev - 5);
-      } else {
-        setObstacleLeft(300);
+    const handleKeyPress = (event) => {
+      if (DIRECTIONS[event.key]) {
+        setDirection(DIRECTIONS[event.key]);
       }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [obstacleLeft]);
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, []);
 
   useEffect(() => {
-    const checkCollision = setInterval(() => {
-      if (
-        dinoRef.current &&
-        obstacleRef.current &&
-        obstacleLeft < 50 &&
-        obstacleLeft > 0 &&
-        !isJumping
-      ) {
-        setGameOver(true);
-      }
-    }, 50);
+    if (gameOver) return;
+    const gameLoop = setInterval(() => {
+      setSnake((prevSnake) => {
+        const newSnake = [...prevSnake];
+        const head = {
+          x: newSnake[0].x + direction.x,
+          y: newSnake[0].y + direction.y,
+        };
 
-    return () => clearInterval(checkCollision);
-  }, [obstacleLeft, isJumping]);
+        if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE || newSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
+          setGameOver(true);
+          return prevSnake;
+        }
 
-  const handleJump = () => {
-    if (!isJumping) {
-      setIsJumping(true);
-      setTimeout(() => {
-        setIsJumping(false);
-      }, 500);
-    }
-  };
+        newSnake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+          setFood({ x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) });
+        } else {
+          newSnake.pop();
+        }
+        return newSnake;
+      });
+    }, 200);
+
+    return () => clearInterval(gameLoop);
+  }, [direction, food, gameOver]);
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "50px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h2>You're Offline! Play This Game</h2>
+    <div className="flex flex-col items-center mt-10 font-sans">
+      <h2 className="text-xl font-bold mb-4">You're Offline! Play Snake Game</h2>
       {gameOver ? (
-        <h3>Game Over! Refresh to Play Again</h3>
+        <>
+          <h3 className="text-red-600 font-semibold">Game Over!</h3>
+          <button
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            onClick={() => {
+              setSnake(INITIAL_SNAKE);
+              setFood(INITIAL_FOOD);
+              setDirection(DIRECTIONS.ArrowRight);
+              setGameOver(false);
+            }}
+          >
+            Restart Game
+          </button>
+        </>
       ) : (
-        <div
-          style={{
-            position: "relative",
-            width: "300px",
-            height: "150px",
-            border: "2px solid black",
-            margin: "auto",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            ref={dinoRef}
-            style={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "green",
-              position: "absolute",
-              bottom: isJumping ? "80px" : "0px",
-              left: "30px",
-              transition: "bottom 0.3s",
-            }}
-          ></div>
-          <div
-            ref={obstacleRef}
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: "red",
-              position: "absolute",
-              bottom: "0px",
-              left: `${obstacleLeft}px`,
-            }}
-          ></div>
+        <div className="relative w-[400px] h-[400px] border-4 border-black bg-green-200 grid grid-cols-20 grid-rows-20">
+          {Array.from({ length: GRID_SIZE }).map((_, y) =>
+            Array.from({ length: GRID_SIZE }).map((_, x) => (
+              <div
+                key={`${x}-${y}`}
+                className={`w-5 h-5 ${snake[0].x === x && snake[0].y === y ? 'bg-blue-500 rounded-full' : snake.some(segment => segment.x === x && segment.y === y) ? 'bg-green-700 rounded-full' : food.x === x && food.y === y ? 'bg-red-500 rounded-full' : ''}`}
+              ></div>
+            ))
+          )}
         </div>
       )}
-      {!gameOver && <p>Press Spacebar to Jump</p>}
-      <button onClick={handleJump} disabled={gameOver}>
-        Jump
-      </button>
     </div>
   );
 };
