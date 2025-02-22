@@ -1,31 +1,39 @@
 import ShimmerUi from "./shimmerui";
 import { useParams } from "react-router";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
-    const  {resId} = useParams();
+    const { resId } = useParams();
     const resInfo = useRestaurantMenu(resId);
+    const [showIndex, setShowIndex] = useState(null);
 
-    if (resInfo ===null) return (<ShimmerUi/>)
+    if (resInfo === null) return (<ShimmerUi />);
 
-    const {name,cuisines,costForTwoMessage} = resInfo[2]?.card?.card?.info;
-    const {itemCards} = resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
+    const { name, cuisines, costForTwoMessage } = resInfo[2]?.card?.card?.info;
+    const categories = resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || c.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory");
 
-    const categories = resInfo[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
-
-    console.log("categories",categories);
+    const handleCategoryClick = (index) => {
+        setShowIndex(prevIndex => prevIndex === index ? null : index);
+    };
 
     return (
-        <div className="">
-           <h1>{name || "Restaurant Name Not Found"}</h1>
-           <h3>{cuisines.join(",")}</h3>
-           <h3>{costForTwoMessage}</h3>
-            <h2> Menu</h2>
-            <ul>
-                {itemCards.map((item) => <li key={item.card?.info?.id}>{item.card?.info?.name} - {item.card?.info?.price/100 || item.card?.info?.defaultPrice/100 } Rs</li>)}
-            </ul>
+       <div className="bg-blue-100">
+         <div className="text-center">
+            <h1 className="font-bold my-6 text-2xl">{name || "Restaurant Name Not Found"}</h1>
+            <p className="font-bold text-lg">{cuisines.join(",")} - {costForTwoMessage}</p>
+            {categories.map((category, index) => (
+                <RestaurantCategory
+                    key={category?.card?.card.title}
+                    Data={category?.card?.card}
+                    showItems={index === showIndex}
+                    setShowIndex={() => handleCategoryClick(index)}
+                />
+            ))}
         </div>
-    )
- };
+       </div>
+    );
+};
 
 export default RestaurantMenu;

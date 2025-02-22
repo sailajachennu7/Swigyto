@@ -18,15 +18,15 @@ class AboutPage extends React.Component {
                         Passionate Web Developer | React Enthusiast | SEO Learner
                     </p>
                     <UserClassComp />
-                    <div className="mt-6 text-gray-700">
-                        <h2 className="text-xl font-semibold">More About Me:</h2>
-                        <ul className="list-disc list-inside mt-2">
-                            <li>👩‍💻 **Frontend Developer** with 3+ years of experience</li>
-                            <li>⚛️ Strong knowledge in **React.js, Tailwind CSS, JavaScript**</li>
-                            <li>📈 Learning **SEO & Performance Optimization**</li>
-                            <li>🎯 Working on a **React-based food ordering app**</li>
-                            <li>🎮 Loves **playing offline games (like Snake!)**</li>
-                            <li>📍 Based in **Hyderabad, India**</li>
+                    <div className="mt-8 bg-gradient-to-r from-purple-50 to-gray-100 p-6 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-semibold text-purple-700 mb-4">More About Me:</h2>
+                        <ul className="list-none space-y-3 text-gray-700">
+                            <li className="flex items-center"><span className="text-purple-600 text-lg">👩‍💻</span>&nbsp;<span className="font-semibold">Frontend Developer</span> with 3+ years of experience</li>
+                            <li className="flex items-center"><span className="text-blue-600 text-lg">⚛️</span>&nbsp;Strong knowledge in <span className="font-semibold">React.js, Tailwind CSS, JavaScript</span></li>
+                            <li className="flex items-center"><span className="text-green-600 text-lg">📈</span>&nbsp;Learning <span className="font-semibold">SEO & Performance Optimization</span></li>
+                            <li className="flex items-center"><span className="text-orange-600 text-lg">🎯</span>&nbsp;Working on a <span className="font-semibold">React-based food ordering app</span></li>
+                            <li className="flex items-center"><span className="text-red-600 text-lg">🎮</span>&nbsp;Loves <span className="font-semibold">playing offline games (like Snake!)</span></li>
+                            <li className="flex items-center"><span className="text-indigo-600 text-lg">📍</span>&nbsp;Based in <span className="font-semibold">Hyderabad, India</span></li>
                         </ul>
                     </div>
                 </div>
